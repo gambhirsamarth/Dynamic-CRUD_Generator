@@ -26,7 +26,8 @@ public class OpenAIService {
     private String apiKey;
 
     private final String insertEndPoint = "api/crud/insert?tableName=";
-    private final String fetchEndPoint = "http://localhost:8080/api/crud/fetch/";
+    private final String fetchEndPoint = "api/crud/fetch/";
+    private final String updateEndPoint = "api/crud/update/";
 
 
     private static final String promptConstraint = """
@@ -49,12 +50,12 @@ public class OpenAIService {
         if (tableDescription == null) {
             dynamicService.createTable(tableName, fields);
         } else {
-            // TODO
+            dynamicService.alterTable(tableName, fields, tableDescription);
         }
         responseDto.tableName = tableName;
-        responseDto.tableSchema = fields;
         responseDto.fetchEndpoint = fetchEndPoint + tableName + "/{id}";
         responseDto.insertEndpoint = insertEndPoint + tableName;
+        responseDto.updateEndpoint = updateEndPoint + tableName + "/{id}";
         return responseDto;
     }
 

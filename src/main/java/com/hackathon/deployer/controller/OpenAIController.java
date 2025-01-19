@@ -22,7 +22,7 @@ public class OpenAIController {
             ResponseDto response = openAIService.processPrompt(prompt);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return null;
+            return ResponseEntity.status(500).body(null);
         }
     }
 }
